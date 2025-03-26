@@ -1,324 +1,156 @@
-# Praxisarbeit – HFSNT.H.6.11-BE-S2405-VCID.IA1A.PA
+# Praxisarbeit – HFSNT.F.6.11-BE-S2411-DBWE.IA1A.PA
 
 ## Anleitung zum Starten der Applikation auf der lokalen Umgebung
 
 ### Starten mit Docker
 
-Klonen Sie das Repository und navigieren Sie im Terminal bzw. Kommandozeile (Konsole) zum geklonten Repository. 
-Starten Sie die Docker Services mit:
+Um das Repository zu klonen, verwenden Sie den entsprechenden Befehl und navigieren anschließend im Terminal bzw. der Kommandozeile zum geklonten Verzeichnis. Starten Sie die Docker-Services mit folgendem Befehl:
 ```shell
 docker compose up -d
 ```
-> Beachten Sie, dass die Applikation im Hintergrund gestartet wird und nicht direkt in der Konsole. Falls Sie bewusst die
-> Applikation in der Konsole starten möchten, führen Sie den Befehl ohne `-d` aus: `docker compose up`.
+Hinweis: Die Applikation wird im Hintergrund gestartet, sodass sie nicht direkt in der Konsole ausgeführt wird. Möchten Sie die Applikation jedoch in der Konsole starten, lassen Sie den -d-Schalter weg und führen Sie den folgenden Befehl aus: `docker compose up`.
 
-Die Applikation kann folgendermassen wieder beendet werden:
+Um die Applikation wieder zu beenden, verwenden Sie den folgenden Befehl:
 ```shell
 docker compose down
 ```
-> Falls Sie die Applikation ohne `-d` ausgeführt haben, drücken Sie CTRL + C auf Windows/Linux und CMD + C auf MacOS.
+Wenn die Applikation ohne den -d-Schalter ausgeführt wurde, können Sie sie durch Drücken von CTRL + C auf Windows/Linux oder CMD + C auf macOS beenden.
 
 ### Starten auf Windows
 
-Falls Sie die Applikation ohne Docker-Unterstützung starten möchten, führen Sie die folgenden Befehle in der Kommandozeile aus. 
-Achten Sie dabei darauf, dass Sie sich in der Konsole im Ordner des geklonten Repositorys befinden.
-Es wird davon ausgegangen, dass Sie [Python Version 3](https://www.python.org/downloads/) & [virtualenv](https://pypi.org/project/virtualenv/) installiert haben.
-```shell
-virtualenv venv
-.\venv\Scripts\activate.bat # für Powershell bitte .\venv\Scripts\activate.ps1 ausführen
-pip3 install -r requirements.txt
+Falls die Applikation ohne Docker-Unterstützung gestartet werden soll, führen Sie die folgenden Schritte in der Kommandozeile aus. Stellen Sie sicher, dass Sie sich im Ordner des geklonten Repositorys befinden. Es wird vorausgesetzt, dass Sie [Python Version 3](https://www.python.org/downloads/) sowie [virtualenv](https://pypi.org/project/virtualenv/) auf Ihrem System installiert haben.
 
-flask db init
-flask db migrate -m "Initialize database"
-flask db upgrade
+1. Erstellen Sie ein virtuelles Python-Environment:
+   ```shell
+   virtualenv venv
+   ```
 
-set FLASK_APP=zeitverwaltung.py
-flask run
-```
+2. Aktivieren Sie das virtuelle Environment:
+   - Für die Kommandozeile:
+     ```shell
+     .\venv\Scripts\activate.bat
+     ```
+   - Für PowerShell:
+     ```shell
+     .\venv\Scripts\activate.ps1
+     ```
 
-### Starten auf MacOS oder Linux
+3. Installieren Sie die notwendigen Abhängigkeiten:
+   ```shell
+   pip3 install -r requirements.txt
+   ```
 
-Zum starten der Applikation, führen Sie folgende Schritte im Terminal durch. Vergewissern Sie sich, dass Sie sich in der Konsole 
-im geklonten Repository-Ordner befinden. Es wird davon ausgegangen, dass Sie [Python Version 3](https://www.python.org/downloads/) & [virtualenv](https://pypi.org/project/virtualenv/) installiert haben.
-```shell
-virtualenv venv
-source ./venv/bin/activate
-pip3 install -r requirements.txt
+4. Initialisieren Sie die Datenbank:
+   ```shell
+   flask db init
+   ```
 
-flask db init
-flask db migrate -m "Initialize database"
-flask db upgrade
+5. Erstellen Sie die Migrationen:
+   ```shell
+   flask db migrate -m "Initialize database"
+   ```
 
-export FLASK_APP=zeitverwaltung.py
-flask run
-```
+6. Wenden Sie die Migrationen an:
+   ```shell
+   flask db upgrade
+   ```
 
-## Allgemeine Info
+7. Setzen Sie die Umgebungsvariable für die Flask-Applikation:
+   ```shell
+   set FLASK_APP=zeitverwaltung.py
+   ```
 
-Dieses Repository beinhaltet eine einfache Webapplikation programmiert in Python Flask mit einer Anbindung an eine 
-relationale Datenbank MariaDB. Die Webapplikation wurde von mir selbst programmiert. Gewisse Teile der Applikation wurden 
-vom [Microblog](https://github.com/miguelgrinberg/microblog) von Miguel Grinberg übernommen. Es betrifft hauptsächlich 
-die Struktur der Dateien und der Registrierung- & Login-Mechanismus.
+8. Starten Sie die Flask-Applikation:
+   ```shell
+   flask run
+   ```
+
+Nach der Ausführung dieser Befehle sollte die Applikation lokal verfügbar sein und über den Webbrowser zugänglich gemacht werden.
+
+### Starten auf macOS oder Linux
+
+Um die Applikation zu starten, führen Sie die folgenden Schritte im Terminal aus. Stellen Sie sicher, dass Sie sich im Ordner des geklonten Repositorys befinden. Es wird vorausgesetzt, dass [Python Version 3](https://www.python.org/downloads/) und [virtualenv](https://pypi.org/project/virtualenv/) bereits auf Ihrem System installiert sind.
+
+1. Erstellen Sie ein virtuelles Python-Environment:
+   ```shell
+   virtualenv venv
+   ```
+
+2. Aktivieren Sie das virtuelle Environment:
+   ```shell
+   source ./venv/bin/activate
+   ```
+
+3. Installieren Sie die benötigten Abhängigkeiten:
+   ```shell
+   pip3 install -r requirements.txt
+   ```
+
+4. Initialisieren Sie die Datenbank:
+   ```shell
+   flask db init
+   ```
+
+5. Erstellen Sie die Migrationen:
+   ```shell
+   flask db migrate -m "Initialize database"
+   ```
+
+6. Wenden Sie die Migrationen an:
+   ```shell
+   flask db upgrade
+   ```
+
+7. Setzen Sie die Umgebungsvariable für die Flask-Applikation:
+   ```shell
+   export FLASK_APP=zeitverwaltung.py
+   ```
+
+8. Starten Sie die Flask-Applikation:
+   ```shell
+   flask run
+   ```
+
+Nach der Ausführung dieser Befehle sollte die Applikation lokal laufen und im Webbrowser zugänglich sein.
+
+## Allgemeine Informationen
+
+Dieses Repository enthält eine Webapplikation, die mit dem Python-basierten Flask-Framework entwickelt wurde und eine Anbindung an die relationale Datenbank MariaDB integriert. Die Applikation wurde vollständig von mir entwickelt, wobei einige Komponenten, insbesondere die Struktur der Verzeichnisse sowie der Registrierungs- und Login-Mechanismus, aus dem [Microblog](https://github.com/miguelgrinberg/microblog) von Miguel Grinberg übernommen wurden. Diese Vorlagen dienten als Ausgangspunkt und wurden entsprechend den spezifischen Anforderungen der Applikation weiter modifiziert und optimiert.
 
 ### Was ist Time Management?
 
-Time Management ist eine benutzerfreundliche Webapplikation, die es Nutzern ermöglicht, ihre geleisteten Arbeitsstunden einfach zu erfassen.  
-Nach der Registrierung und dem Einloggen haben die Nutzer *ausschliesslich* Zugriff auf ihre eigenen Daten. 
-Für jeden Tag kann maximal *ein Eintrag* erfasst werden, in dem die geleisteten Stunden angegeben werden. 
-Optional kann auch für jeden Eintrag ein Kommentar erfasst werden. Die erfassten Stunden lassen sich einsehen, 
-bearbeiten oder wenn nötig löschen. In der Profilübersicht sind allgemeine Informationen des Nutzers sichtbar. 
-Neben den persönlichen Daten aus der Registrierung wird auch angezeigt, wie viele Arbeitsstunden insgesamt bereits geleistet wurden. 
-Darüber hinaus können die Nutzer ihren aktuellen Stand bei Über- oder Minusstunden (Flextime) einsehen.
+Time Management ist eine benutzerfreundliche Webapplikation, die es den Nutzern ermöglicht, ihre geleisteten Arbeitsstunden präzise zu erfassen und zu verwalten. Nach der erfolgreichen Registrierung und dem Login haben die Nutzer *ausschließlich* Zugriff auf ihre eigenen Daten, was eine hohe Datensicherheit und Privatsphäre gewährleistet.  
 
-### Autor
+Die Applikation ermöglicht es den Nutzern, für jeden Arbeitstag *einen Zeiteintrag* zu erstellen, in dem die geleisteten Stunden dokumentiert werden. Zusätzlich besteht die Möglichkeit, für jeden Eintrag einen optionalen Kommentar hinzuzufügen, um etwaige spezifische Details zu vermerken. Die erfassten Stunden können jederzeit eingesehen, bearbeitet oder – falls erforderlich – gelöscht werden.  
 
-Sinsakhone Phongsanith
-
-### Erreichbarkeit im Internet
-
-Die Webapplikation ist für eine geraume Zeit öffentlich im Internet erreichbar unter der URL [http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/](http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/).
-
-### Repository vom Source Code
-
-Der komplette Code befindet sich öffentlich zugänglich auf GitHub unter folgendem Repository: [https://github.com/KaitoXI/Time-Management](https://github.com/KaitoXI/Time-Management)
+In der Profilübersicht werden nicht nur die persönlichen Daten des Nutzers angezeigt, sondern auch die insgesamt geleisteten Arbeitsstunden. Weiterhin haben die Nutzer die Möglichkeit, ihren aktuellen Stand in Bezug auf Über- oder Minusstunden (Flextime) zu überprüfen, um ihre Arbeitszeit flexibel und effizient zu verwalten.
 
 ### Quellen
 
-Teile der Applikation wurden inspiriert oder komplett von [MicroBlog](https://github.com/miguelgrinberg/microblog) entnommen.
+Bestimmte Teile der Applikation wurden entweder inspiriert oder direkt aus dem [MicroBlog](https://github.com/miguelgrinberg/microblog) von Miguel Grinberg übernommen. Diese Komponenten, insbesondere die Struktur der Verzeichnisse sowie der Registrierungs- und Login-Mechanismus, dienten als Grundlage und wurden an die spezifischen Anforderungen der eigenen Webapplikation angepasst.
 
 ## Technologien & Bibliotheken
 
-Folgende Technologien kommen zum Einsatz in der Webanwendung:
-- Programmiersprache: *[Python](https://www.python.org/)*
-- Web-Framework: *[Flask](https://flask.palletsprojects.com/en/2.2.x/)*
-- Datenbanksystem: *[MariaDB](https://mariadb.org/)*
-- Containerisierung: *[Docker bzw. docker-compose](https://www.docker.com/)*
-- Rendering der Webseiten: *[Jinja2](https://jinja.palletsprojects.com/en/3.1.x/)*
-- Styling Bibliothek: *[Bootstrap](https://getbootstrap.com/)*
-- Benutzte Icons: *[fontawesome](https://fontawesome.com/)*
+Für die Entwicklung der Webanwendung wurden die folgenden Technologien und Bibliotheken verwendet:
+
+- **Programmiersprache**: [Python](https://www.python.org/) – Die Hauptsprache für die Backend-Entwicklung.
+- **Web-Framework**: [Flask](https://flask.palletsprojects.com/en/2.2.x/) – Ein leichtgewichtiges Web-Framework, das für die schnelle Entwicklung von Webanwendungen optimiert ist.
+- **Datenbanksystem**: [MariaDB](https://mariadb.org/) – Eine relationale Open-Source-Datenbank, die für die Verwaltung der Benutzer- und Arbeitsstundendaten verantwortlich ist.
+- **Containerisierung**: [Docker und docker-compose](https://www.docker.com/) – Ermöglicht die Erstellung, Bereitstellung und Verwaltung von Containern zur Isolierung und Skalierung der Anwendung.
+- **Rendering der Webseiten**: [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/) – Ein Templating-Engine, die für die dynamische Generierung von HTML-Seiten verwendet wird.
+- **Styling-Bibliothek**: [Bootstrap](https://getbootstrap.com/) – Ein Framework für die Entwicklung responsiver und ansprechender Benutzeroberflächen.
+- **Benutzte Icons**: [FontAwesome](https://fontawesome.com/) – Eine Icon-Bibliothek, die in der Anwendung für die visuelle Darstellung von Funktionen und Aktionen genutzt wird.
 
 ## WebAPI
 
-Die WebAPI ist eine Schnittstelle um HTTP Anfragen an den Webserver zu schicken und ggf. Daten zu laden. Die Webapplikation 
-bietet derzeit APIs für folgende Szenarien:
-- das Erstellen & Bearbeiten eines Nutzers
-- Erstellen & Löschen eines Authentifizierung-Tokens
-- Auslesen aller erfassten Arbeitsstunden
-- Erstellen, Bearbeiten, Auslesen & Löschen erfasster Arbeitsstunden
-
-Die Schnittstellen sind über den Pfad `/api/users`, `/api/working-hours` und `/api/tokens` erreichbar.
-
-### Token API
-
-#### Neuen Token erstellen
-
-Base-Auth: `<USERNAME>:<PASSWORD>`
-> Die Authentifizierungsdaten werden in der URL mitgegeben. Beispielsweise: `https://<USERNAME>:<PASSWORD>http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/api/tokens`
-
-Pfad: `/api/tokens`
-
-Methode: `POST`
-
-Dieses Beispiel als `curl` Kommando:
-```shell
-curl http://TimeManagement:secret-12345@ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/api/tokens -X POST
-```
-
-#### Token wiederrufen bzw. löschen
-
-Pfad: `/api/tokens`
-
-Methode: `DELETE`
-
-Authorization im Header: `Authorization: Bearer <TOKEN>`
-> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
-
-Dieses Beispiel als `curl` Kommando:
-```shell
-curl http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/api/tokens -X DELETE -H "Authorization: Bearer 62zNTEL/texJjlRyH5wo5KbtYDuUwvUM"
-```
-
-
-### Users API
-
-#### Erstellen eines neuen Nutzers
-
-Pfad: `/api/users`
-
-Methode: `POST`
-
-Content-Type im Header: `Content-Type: application/json`
-
-Body als JSON:
-```json
-{
-  "username": "Tony",
-  "email": "tony@test.com",
-  "password": "secret-12345",
-  "company": "CSAG",
-  "job": "Engineer",
-  "target_time": 8
-}
-```
-> Ersetzen Sie die Beispielwerte im JSON mit Ihren eigenen.
-
-Dieses Beispiel als `curl` Kommando:
-```shell
-curl http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/api/users -X POST -H "Content-Type: application/json" -d "{\"username\": \"Tony\", \"email\": \"tony@test.com\", \"password\": \"12345\", \"company\": \"CSAG\", \"job\": \"WebDev\", \"target_time\": 8}"
-```
-
-#### Auslesen des Nutzer-Profils
-
-Pfad: `/api/users`
-
-Methode: `GET`
-
-Authorization im Header: `Authorization: Bearer <TOKEN>`
-> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
-
-Dieses Beispiel als `curl` Kommando:
-```shell
-curl http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/api/users -H "Authorization: Bearer 62zNTEL/texJjlRyH5wo5KbtYDuUwvUM"
-```
-
-#### Bearbeiten des Nutzer-Profils
-
-Pfad: `/api/users`
-
-Methode: `PUT`
-
-Content-Type im Header: `Content-Type: application/json`
-
-Authorization im Header: `Authorization: Bearer <TOKEN>`
-> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
-
-Body als JSON:
-```json
-{
-  "username": "Tony",
-  "email": "tony@test.com",
-  "password": "secret-12345",
-  "company": "CSAG",
-  "job": "Engineer",
-  "target_time": 8
-}
-```
-> Ersetzen Sie die Beispielwerte im JSON mit Ihren eigenen. Es müssen nicht alle Werte mitgegeben werden, nur jene, 
-> welche geändert werden sollen.
-
-Dieses Beispiel als `curl` Kommando:
-```shell
-curl http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/api/users -X PUT -H "Authorization: Bearer 62zNTEL/texJjlRyH5wo5KbtYDuUwvUM" -H "Content-Type: application/json" -d "{\"company\":\"CSAG\", \"job\":\"Engineer\"}"
-```
-
-### Arbeitsstunden API
-
-#### Erfassen neuer Arbeitsstunden
-
-Pfad: `/api/working-hours`
-
-Methode: `POST`
-
-Content-Type im Header: `Content-Type: application/json`
-
-Authorization im Header: `Authorization: Bearer <TOKEN>`
-> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
-
-Body als JSON:
-```json
-{
-  "date": "2024-09-02",
-  "working_hours": 8.4,
-  "comment": "Time Management Flask Applikation"
-}
-```
-> Ersetzen Sie die Beispielwerte im JSON mit Ihren eigenen.
-> Beachten Sie, dass das Datum im Format YYYY-MM-DD mitgegeben werden muss.
-
-Dieses Beispiel als `curl` Kommando:
-```shell
-curl http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/api/working-hours -X POST -H "Authorization: Bearer 62zNTEL/texJjlRyH5wo5KbtYDuUwvUM" -H "Content-Type: application/json" -d "{\"date\":\"2024-09-02\",\"working_hours\":\"8.4\",\"comment\":\"Time Management Flask Applikation\"}"
-```
-
-#### Auslesen aller bereits erfassen Arbeitsstunden
-
-Pfad: `/api/working-hours`
-
-Methode: `GET`
-
-Authorization im Header: `Authorization: Bearer <TOKEN>`
-> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
-
-Dieses Beispiel als `curl` Kommando:
-```shell
-curl http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/api/working-hours -H "Authorization: Bearer 62zNTEL/texJjlRyH5wo5KbtYDuUwvUM"
-```
-
-#### Auslesen einer bestimmten erfassten Arbeitsstunden mit dem ID
-
-Pfad: `/api/working-hours/<ID>`
-> Hier `<ID>` durch die ID der erfassten Arbeitsstunden ersetzen. Diese ID kann man herausfinden, indem man alle Einträge der 
-> Arbeitsstunden lädt und die ID ausliest.
-
-Methode: `GET`
-
-Authorization im Header: `Authorization: Bearer <TOKEN>`
-> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
-
-Dieses Beispiel als `curl` Kommando:
-```shell
-curl http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/api/working-hours/1 -H "Authorization: Bearer 62zNTEL/texJjlRyH5wo5KbtYDuUwvUM"
-```
-
-#### Bearbeiten einer bestimmten erfassten Arbeitsstunden
-
-Pfad: `/api/working-hours/<ID>`
-> Hier `<ID>` durch die ID der erfassten Arbeitsstunden ersetzen. Diese ID kann man herausfinden, indem man alle Einträge der
-> Arbeitsstunden lädt und die ID ausliest.
-
-Methode: `PUT`
-
-Content-Type im Header: `Content-Type: application/json`
-
-Authorization im Header: `Authorization: Bearer <TOKEN>`
-> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
-
-Body als JSON:
-```json
-{
-  "working_hours": 9,
-  "comment": "Time Management Dokumentation"
-}
-```
-> Ersetzen Sie die Beispielwerte im JSON mit Ihren eigenen. Es kann nur der Kommentar bzw. die geleistete Arbeitsstunden bearbeitet werden.
-
-Dieses Beispiel als `curl` Kommando:
-```shell
-curl http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/api/working-hours/1 -X PUT -H "Authorization: Bearer 62zNTEL/texJjlRyH5wo5KbtYDuUwvUM" -H "Content-Type: application/json" -d "{\"working_hours\":9,\"comment\":\"Time Management Dokumentation\"}"
-```
-
-#### Löschen einer bestimmten erfassten Arbeitsstunden
-
-Pfad: `/api/working-hours/<ID>`
-> Hier `<ID>` durch die ID der erfassten Arbeitsstunden ersetzen. Diese ID kann man herausfinden, indem man alle Einträge der
-> Arbeitsstunden lädt und die ID ausliest.
-
-Methode: `DELETE`
-
-Authorization im Header: `Authorization: Bearer <TOKEN>`
-> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
-
-Dieses Beispiel als `curl` Kommando:
-```shell
-curl http://ec2-16-171-38-156.eu-north-1.compute.amazonaws.com:5000/api/working-hours/1 -X DELETE -H "Authorization: Bearer 62zNTEL/texJjlRyH5wo5KbtYDuUwvUM"
-```
-
-
-## Checkliste mit den Anforderungen der Praxisarbeit
-
-- [x] interaktive Weboberfläche (Benutzereingaben, -verarbeitungen & -aktionen)
-- [x] Authentifizierung & Autorisierung mit Benutzernamen, E-Mail Adresse & Passwort
-- [x] Datenspeicherung in einer relationaler Datenbank
-- [x] Implementierung der Geschäftslogik
-- [x] mind. 1 Lesezugriff über RESTful Web-API
-- [x] Scripts zur automatisierten Bau & Inbetriebnahme der Webanwendung
+Die WebAPI stellt eine Schnittstelle zur Verfügung, über die HTTP-Anfragen an den Webserver gesendet werden können, um verschiedene Datenoperationen durchzuführen. Die Webapplikation bietet derzeit API-Endpunkte für die folgenden Szenarien:
+
+- Erstellen und Bearbeiten von Nutzerdaten
+- Erstellen und Löschen von Authentifizierungstokens
+- Abrufen aller erfassten Arbeitsstunden
+- Erstellen, Bearbeiten, Abrufen und Löschen von erfassten Arbeitsstunden
+
+Diese APIs sind unter den folgenden Pfaden erreichbar:
+- `/api/users` – für Operationen im Zusammenhang mit Nutzerdaten
+- `/api/working-hours` – für das Verwalten von Arbeitsstunden
+- `/api/tokens` – für die Verwaltung von Authentifizierungstokens
