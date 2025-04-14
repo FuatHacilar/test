@@ -154,3 +154,208 @@ Diese APIs sind unter den folgenden Pfaden erreichbar:
 - `/api/users` – für Operationen im Zusammenhang mit Nutzerdaten
 - `/api/working-hours` – für das Verwalten von Arbeitsstunden
 - `/api/tokens` – für die Verwaltung von Authentifizierungstokens
+
+### Token API
+
+#### Neuen Token erstellen
+
+Base-Auth: `<USERNAME>:<PASSWORD>`
+> Die Authentifizierungsdaten werden in der URL mitgegeben. Beispielsweise: `https://<USERNAME>:<PASSWORD>http://136.244.87.119:5000/api/tokens`
+
+Pfad: `/api/tokens`
+
+Methode: `POST`
+
+Dieses Beispiel als `curl` Kommando:
+```shell
+curl http://TestUser:TestPasswort@136.244.87.119:5000/api/tokens -X POST
+```
+
+#### Token wiederrufen bzw. löschen
+
+Pfad: `/api/tokens`
+
+Methode: `DELETE`
+
+Authorization im Header: `Authorization: Bearer <TOKEN>`
+> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
+
+Dieses Beispiel als `curl` Kommando:
+```shell
+curl http://136.244.87.119:5000/api/tokens -X DELETE -H "Authorization: Bearer 1ZTtkbEocxOMPd4VdN1n7dBwZXtmoCRT"
+```
+
+
+### Users API
+
+#### Erstellen eines neuen Nutzers
+
+Pfad: `/api/users`
+
+Methode: `POST`
+
+Content-Type im Header: `Content-Type: application/json`
+
+Body als JSON:
+```json
+{
+  "username": "TestUser",
+  "email": "test@test.com",
+  "password": "TestPassword",
+  "company": "TEST",
+  "job": "TEST",
+  "target_time": 24
+}
+```
+> Ersetzen Sie die Beispielwerte im JSON mit Ihren eigenen.
+
+Dieses Beispiel als `curl` Kommando:
+```shell
+curl http://136.244.87.119:5000/api/users -X POST -H "Content-Type: application/json" -d "{\"username\": \"TestUser\", \"email\": \"test@test.com\", \"password\": \"TestPassword\", \"company\": \"TEST\", \"job\": \"TEST\", \"target_time\": 24}"
+```
+
+#### Auslesen des Nutzer-Profils
+
+Pfad: `/api/users`
+
+Methode: `GET`
+
+Authorization im Header: `Authorization: Bearer <TOKEN>`
+> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
+
+Dieses Beispiel als `curl` Kommando:
+```shell
+curl http://136.244.87.119:5000/api/users -H "Authorization: Bearer 1ZTtkbEocxOMPd4VdN1n7dBwZXtmoCRT"
+```
+
+#### Bearbeiten des Nutzer-Profils
+
+Pfad: `/api/users`
+
+Methode: `PUT`
+
+Content-Type im Header: `Content-Type: application/json`
+
+Authorization im Header: `Authorization: Bearer <TOKEN>`
+> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
+
+Body als JSON:
+```json
+{
+  "username": "TestUser",
+  "email": "test@test.com",
+  "password": "TestPassword",
+  "company": "TEST",
+  "job": "TEST",
+  "target_time": 24
+}
+```
+> Ersetzen Sie die Beispielwerte im JSON mit Ihren eigenen. Es müssen nicht alle Werte mitgegeben werden, nur jene, 
+> welche geändert werden sollen.
+
+Dieses Beispiel als `curl` Kommando:
+```shell
+curl http://136.244.87.119:5000/api/users -X PUT -H "Authorization: Bearer 1ZTtkbEocxOMPd4VdN1n7dBwZXtmoCRT" -H "Content-Type: application/json" -d "{\"company\":\"TEST\", \"job\":\"TEST\"}"
+```
+
+### Arbeitsstunden API
+
+#### Erfassen neuer Arbeitsstunden
+
+Pfad: `/api/working-hours`
+
+Methode: `POST`
+
+Content-Type im Header: `Content-Type: application/json`
+
+Authorization im Header: `Authorization: Bearer <TOKEN>`
+> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
+
+Body als JSON:
+```json
+{
+  "date": "2024-09-02",
+  "working_hours": 8.4,
+  "comment": "Time Management Flask Applikation"
+}
+```
+> Ersetzen Sie die Beispielwerte im JSON mit Ihren eigenen.
+> Beachten Sie, dass das Datum im Format YYYY-MM-DD mitgegeben werden muss.
+
+Dieses Beispiel als `curl` Kommando:
+```shell
+curl http://136.244.87.119:5000/api/working-hours -X POST -H "Authorization: Bearer 1ZTtkbEocxOMPd4VdN1n7dBwZXtmoCRT" -H "Content-Type: application/json" -d "{\"date\":\"2024-09-02\",\"working_hours\":\"8.4\",\"comment\":\"Time Management Flask Applikation\"}"
+```
+
+#### Auslesen aller bereits erfassen Arbeitsstunden
+
+Pfad: `/api/working-hours`
+
+Methode: `GET`
+
+Authorization im Header: `Authorization: Bearer <TOKEN>`
+> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
+
+Dieses Beispiel als `curl` Kommando:
+```shell
+curl http://136.244.87.119:5000/api/working-hours -H "Authorization: Bearer 1ZTtkbEocxOMPd4VdN1n7dBwZXtmoCRT"
+```
+
+#### Auslesen einer bestimmten erfassten Arbeitsstunden mit dem ID
+
+Pfad: `/api/working-hours/<ID>`
+> Hier `<ID>` durch die ID der erfassten Arbeitsstunden ersetzen. Diese ID kann man herausfinden, indem man alle Einträge der 
+> Arbeitsstunden lädt und die ID ausliest.
+
+Methode: `GET`
+
+Authorization im Header: `Authorization: Bearer <TOKEN>`
+> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
+
+Dieses Beispiel als `curl` Kommando:
+```shell
+curl http://136.244.87.119:5000/api/working-hours/1 -H "Authorization: Bearer 1ZTtkbEocxOMPd4VdN1n7dBwZXtmoCRT"
+```
+
+#### Bearbeiten einer bestimmten erfassten Arbeitsstunden
+
+Pfad: `/api/working-hours/<ID>`
+> Hier `<ID>` durch die ID der erfassten Arbeitsstunden ersetzen. Diese ID kann man herausfinden, indem man alle Einträge der
+> Arbeitsstunden lädt und die ID ausliest.
+
+Methode: `PUT`
+
+Content-Type im Header: `Content-Type: application/json`
+
+Authorization im Header: `Authorization: Bearer <TOKEN>`
+> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
+
+Body als JSON:
+```json
+{
+  "working_hours": 9,
+  "comment": "Time Management Dokumentation"
+}
+```
+> Ersetzen Sie die Beispielwerte im JSON mit Ihren eigenen. Es kann nur der Kommentar bzw. die geleistete Arbeitsstunden bearbeitet werden.
+
+Dieses Beispiel als `curl` Kommando:
+```shell
+curl http://136.244.87.119:5000/api/working-hours/1 -X PUT -H "Authorization: Bearer 1ZTtkbEocxOMPd4VdN1n7dBwZXtmoCRT" -H "Content-Type: application/json" -d "{\"working_hours\":9,\"comment\":\"Time Management Dokumentation\"}"
+```
+
+#### Löschen einer bestimmten erfassten Arbeitsstunden
+
+Pfad: `/api/working-hours/<ID>`
+> Hier `<ID>` durch die ID der erfassten Arbeitsstunden ersetzen. Diese ID kann man herausfinden, indem man alle Einträge der
+> Arbeitsstunden lädt und die ID ausliest.
+
+Methode: `DELETE`
+
+Authorization im Header: `Authorization: Bearer <TOKEN>`
+> Ersetzen Sie `<TOKEN>` durch Ihren eigenen Token.
+
+Dieses Beispiel als `curl` Kommando:
+```shell
+curl http://136.244.87.119:5000/api/working-hours/1 -X DELETE -H "Authorization: Bearer 1ZTtkbEocxOMPd4VdN1n7dBwZXtmoCRT"
+```
