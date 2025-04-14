@@ -141,6 +141,14 @@ Für die Entwicklung der Webanwendung wurden die folgenden Technologien und Bibl
 - **Styling-Bibliothek**: [Bootstrap](https://getbootstrap.com/) – Ein Framework für die Entwicklung responsiver und ansprechender Benutzeroberflächen.
 - **Benutzte Icons**: [FontAwesome](https://fontawesome.com/) – Eine Icon-Bibliothek, die in der Anwendung für die visuelle Darstellung von Funktionen und Aktionen genutzt wird.
 
+### Erreichbarkeit im Internet
+
+Die Webapplikation ist für eine geraume Zeit öffentlich im Internet erreichbar unter der URL [http://136.244.87.119:5000/](http://136.244.87.119:5000/).
+
+### Repository vom Source Code
+
+Der komplette Code befindet sich öffentlich zugänglich auf GitHub unter folgendem Repository: [https://github.com/FuatHacilar/DBWE](https://github.com/FuatHacilar/DBWE)
+
 ## WebAPI
 
 Die WebAPI stellt eine Schnittstelle zur Verfügung, über die HTTP-Anfragen an den Webserver gesendet werden können, um verschiedene Datenoperationen durchzuführen. Die Webapplikation bietet derzeit API-Endpunkte für die folgenden Szenarien:
